@@ -1,39 +1,7 @@
 #include "Common.h"
 #include <iostream>
+#include "States.h"
 
-osg::ref_ptr<osg::Node> createSceneGraph()
-{
-	// Create an object to store geometry in.
-	osg::ref_ptr<osg::Geometry> geom = new osg::Geometry;
-		// Create an array of four vertices.
-		osg::ref_ptr<osg::Vec3Array> v = new osg::Vec3Array;
-	geom->setVertexArray(v.get());
-	v->push_back(osg::Vec3(-1.f, 0.f, -1.f));
-	v->push_back(osg::Vec3(1.f, 0.f, -1.f));
-	v->push_back(osg::Vec3(1.f, 0.f, 1.f));
-	v->push_back(osg::Vec3(-1.f, 0.f, 1.f));
-	// Create an array of four colors.
-	osg::ref_ptr<osg::Vec4Array> c = new osg::Vec4Array;
-	geom->setColorArray(c.get());
-	geom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
-	c->push_back(osg::Vec4(1.f, 0.f, 0.f, 1.f));
-	c->push_back(osg::Vec4(0.f, 1.f, 0.f, 1.f));
-	c->push_back(osg::Vec4(0.f, 0.f, 1.f, 1.f));
-	c->push_back(osg::Vec4(1.f, 1.f, 1.f, 1.f));
-	// Create an array for the single normal.
-	osg::ref_ptr<osg::Vec3Array> n = new osg::Vec3Array;
-	geom->setNormalArray(n.get());
-	geom->setNormalBinding(osg::Geometry::BIND_OVERALL);
-	n->push_back(osg::Vec3(0.f, -1.f, 0.f));
-	// Draw a four-vertex quad from the stored data.
-	geom->addPrimitiveSet(
-		new osg::DrawArrays(osg::PrimitiveSet::QUADS, 0, 4));
-	// Add the Geometry (Drawable) to a Geode and
-	// return the Geode.
-	osg::ref_ptr<osg::Geode> geode = new osg::Geode;
-	geode->addDrawable(geom.get());
-	return geode.get();
-}
 
 int main()
 {
@@ -78,7 +46,7 @@ int main()
 	//observerCB2->_drawable2 = geode2->getDrawable(1);
 	//root->addUpdateCallback(observerCB2.get());
 
-	osg::ref_ptr<osg::Node> root = createSceneGraph();
+	osg::ref_ptr<osg::Node> root = createSceneGraph2();
 	if (!root.valid())
 		osg::notify(osg::FATAL) <<
 		"Failed in createSceneGraph()." << std::endl;
