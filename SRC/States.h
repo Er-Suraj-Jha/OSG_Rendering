@@ -12,6 +12,9 @@
 #include <osg/LineWidth>
 #include <osg/ShapeDrawable>
 
+
+#include"Texture.h"
+
 osg::ref_ptr<osg::Geometry> createSceneGraph()
 {
 	// Create an object to store geometry in.
@@ -23,6 +26,19 @@ osg::ref_ptr<osg::Geometry> createSceneGraph()
 	v->push_back(osg::Vec3(1.f, 0.f, 1.f));
 	v->push_back(osg::Vec3(-1.f, 0.f, 1.f));
 	geom->setVertexArray(v.get());
+
+
+	//Texture Testing
+	std::string file_location = "C:\\Users\\SURAJ JHA\\Desktop\\Suraj_Temp\\OSG_Upload\\Test.jpg";
+	Texture texture{ file_location,geom };
+
+	//Texture coordinates
+	osg::ref_ptr<osg::Vec2Array> tc = new osg::Vec2Array;
+	geom->setTexCoordArray(0, tc.get());
+	tc->push_back(osg::Vec2(0.5f, 0.5f));
+	tc->push_back(osg::Vec2(1.f, 0.5f));
+	tc->push_back(osg::Vec2(1.f, 1.f));
+	tc->push_back(osg::Vec2(0.5f, 1.f));
 
 	// Create an array of four colors.
 	osg::ref_ptr<osg::Vec4Array> c = new osg::Vec4Array;
@@ -74,6 +90,10 @@ osg::ref_ptr<osg::Node> createSceneGraph2()
 			new osg::MatrixTransform;
 		m.makeTranslate(-2.f, 0.f, 2.f);
 		mt->setMatrix(m);
+
+		/*std::string file_location = "C:\\Users\\SURAJ JHA\\Desktop\\Suraj_Temp\\OSG_Upload\\Test.jpg";
+		Texture texture{ file_location,geode };*/
+
 		root->addChild(mt.get());
 		mt->addChild(geode.get());
 	}
